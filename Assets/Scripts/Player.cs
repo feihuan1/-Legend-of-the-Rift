@@ -2,34 +2,63 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    float xInput;
-    float yInput;
-    float moveSpeed = 5f;
-    float jumpForce = 7f;
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+    private Animator anim;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float jumpForce = 7f;
+
+    float xInput;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponentInChildren<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // TwoWayGetSingleKey();
-        // TwoWayGetAxisInput();
-        xInput = Input.GetAxis("Horizontal");
+        Movement();
+        Checkinput();
 
-        rb.linearVelocity = new Vector2(xInput * moveSpeed, rb.linearVelocity.y);
+        if(Input.GetKeyDown(KeyCode.R)) FlipPlayer();
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
-        }
-
-
+        AnimationControllers();
     }
+
+    private void Checkinput()
+    {
+        xInput = Input.GetAxisRaw("Horizontal");
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
+
+    private void Movement()
+    {
+        rb.linearVelocity = new Vector2(xInput * moveSpeed, rb.linearVelocity.y);
+    }
+
+    private void Jump()
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+    }
+
+    private void AnimationControllers()
+    {
+        bool isMoving = rb.linearVelocityX != 0;
+
+        anim.SetBool("isMoving", isMoving);
+    }
+
+    private void FlipPlayer()
+    {
+        transform.Rotate(0, 180, 0);
+    }
+
+
+
 
     private static void TwoWayGetAxisInput()
     {
@@ -41,7 +70,6 @@ public class Player : MonoBehaviour
         Debug.Log(Input.GetAxisRaw("Horizontal"));
         Debug.Log(Input.GetAxisRaw("Vertical"));
     }
-
     private static void TwoWayGetSingleKey()
     {
         if (Input.GetKey(KeyCode.Space))
