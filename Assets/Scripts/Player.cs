@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
 
     float xInput;
 
+    int facingDir = 1;
+    bool facingRight = true;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -20,9 +23,7 @@ public class Player : MonoBehaviour
     {
         Movement();
         Checkinput();
-
-        if(Input.GetKeyDown(KeyCode.R)) FlipPlayer();
-
+        FlipController();
         AnimationControllers();
     }
 
@@ -54,7 +55,17 @@ public class Player : MonoBehaviour
 
     private void FlipPlayer()
     {
+        facingDir *= -1;
+        facingRight = !facingRight;
         transform.Rotate(0, 180, 0);
+    }
+
+    private void FlipController()
+    {
+        if(rb.linearVelocityX > 0 && !facingRight)
+            FlipPlayer();
+        else if(rb.linearVelocityX < 0 && facingRight)
+            FlipPlayer();
     }
 
 
