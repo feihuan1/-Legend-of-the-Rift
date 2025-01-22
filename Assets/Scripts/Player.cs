@@ -1,7 +1,8 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Entity
 {
+    [Header("Move Info")]
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float jumpForce = 7f;
 
@@ -12,9 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField]float dashTime;
     [SerializeField]float dashCoolDownTimer;
 
-    [Header("Collision Info")]
-    [SerializeField] float groundCheckDistance;
-    [SerializeField] LayerMask whatIsGround;
+
 
     [Header("Attack Info")]
     [SerializeField]float comboTimeWindow;
@@ -22,26 +21,21 @@ public class Player : MonoBehaviour
     bool isAttacking;
     int comboCounter;
 
-    private Rigidbody2D rb;
-    private Animator anim;
-
     float xInput;
-    bool isGrounded;
-    int facingDir = 1;
-    bool facingRight = true;
+    
 
-    void Start()
+
+    protected override void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
+        base.Start();
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         Movement();
         Checkinput();
-        CollisionChecks();
-
         
         if(dashTime > 0) dashTime -= Time.deltaTime;
         if(dashCoolDownTimer > 0) dashCoolDownTimer -= Time.deltaTime;
@@ -63,10 +57,7 @@ public class Player : MonoBehaviour
 
     }
 
-    private void CollisionChecks()
-    {
-        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
-    }
+
 
     private void Checkinput()
     {
@@ -139,26 +130,17 @@ public class Player : MonoBehaviour
         anim.SetInteger("comboCounter", comboCounter);
     }
 
-    private void FlipPlayer()
-    {
-        facingDir *= -1;
-        facingRight = !facingRight;
-        transform.Rotate(0, 180, 0);
-    }
+
 
     private void FlipController()
     {
         if (rb.linearVelocityX > 0 && !facingRight)
-            FlipPlayer();
+            Flip();
         else if (rb.linearVelocityX < 0 && facingRight)
-            FlipPlayer();
+            Flip();
     }
 
-// // debug function, draw a line in scene
-//     private void OnDrawGizmos()
-//     {
-//         Gizmos.DrawLine(transform.position, new Vector3(transform.position.x, transform.position.y - groundCheckDistance));
-//     }
+
 
     private static void TwoWayGetAxisInput()
     {
