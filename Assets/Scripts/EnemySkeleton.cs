@@ -22,18 +22,20 @@ public class EnemySkeleton : Entity
     {
         base.Update();
 
+        if(isPlayerDetected)
+    {
         if (isPlayerDetected.distance > 1)
         {
             rb.linearVelocity = new Vector2(moveSpeed * 1.5f * facingDir, rb.linearVelocityY);
             Debug.Log("I C U");
             isAttacking = false;
         }
-        else
+        else 
         {
-            Debug.Log(isPlayerDetected.distance);
-            Debug.Log(isAttacking);
+            Debug.Log("Attack" );
             isAttacking = true;
         }
+    }
 
         if (!isGrounded || isWallDetected) 
             Flip();
@@ -43,8 +45,11 @@ public class EnemySkeleton : Entity
 
     private void Movement()
     {
-        if(!isAttacking)
+        if(isAttacking == false && !isPlayerDetected)
+        {
+            Debug.Log("alone");
             rb.linearVelocity = new Vector2(moveSpeed * facingDir, rb.linearVelocityY);
+        }
     }
 
     protected override void CollisionChecks()
