@@ -11,6 +11,7 @@
 - 🪢 **Procedural genarated map** – Each playthrough offers a unique world layout, ensuring endless replayability.
 
 ## 🎨 Art & Assets
+####  partner needed: 2D artist help on extending sprite sheet for more player skills and more enemy movement
 - Sprites and assets are custom-made and/or sourced from open-license libraries.
 - Sound effects and music are credited to their respective creators.
 
@@ -20,11 +21,11 @@
 - [ ] Expand the lore and world-building.
 - [ ] Multiplayer mode (optional future update).
 
-## 🤝 Contributing
+## 🤝 Contributing(Need pixel artist help)
 Interested in contributing? Fork the repo, create a branch, and submit a pull request! Feel free to open an issue for suggestions or bugs.
 
 ## 📜 License
-This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**.
 
 ## 📬 Contact
 - **Developer:** Feihuan Peng
