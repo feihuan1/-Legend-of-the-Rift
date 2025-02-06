@@ -19,22 +19,20 @@ public class PlayerState
 
     public virtual void Enter()
     {
-
         player.anim.SetBool(animBoolName, true);
         rb = player.rb;
     }
 
-    public virtual void Update()
-    {
-        xInput = Input.GetAxisRaw("Horizontal");
-
-        player.anim.SetFloat("yVelocity", rb.linearVelocity.y);
-    }
-
+    
     public virtual void Exit()
     {
         player.anim.SetBool(animBoolName, false);
     }
 
+    public virtual void Update()
+    {
+        xInput = Input.GetAxisRaw("Horizontal");
+        player.anim.SetFloat("yVelocity", rb.linearVelocity.y);
+    }
 
 }

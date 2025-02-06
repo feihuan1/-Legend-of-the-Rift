@@ -12,6 +12,7 @@ public class PlayerMoveState : PlayerGroundedState
         base.Enter();
     }
 
+
     public override void Exit()
     {
         base.Exit();
@@ -28,5 +29,6 @@ public class PlayerMoveState : PlayerGroundedState
             stateMachine.ChangeState(player.idleState);
         }
     }
+
 
 }

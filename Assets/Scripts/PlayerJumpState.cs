@@ -13,11 +13,12 @@ public class PlayerJumpState : PlayerState
         rb.linearVelocity = new Vector2(rb.linearVelocityX, player.jumpForce);
     }
 
+    
     public override void Exit()
     {
         base.Exit();
     }
-
+    
     public override void Update()
     {
         base.Update();
@@ -27,4 +28,5 @@ public class PlayerJumpState : PlayerState
             stateMachine.ChangeState(player.airState);
         }
     }
+
 }
