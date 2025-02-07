@@ -21,9 +21,13 @@ public class PlayerDashState : PlayerState
     public override void Update()
     {
         base.Update();
-        Debug.Log("Dashing");
 
-        player.SetVelocity(player.dashSpeed* player.facingDir, rb.linearVelocityY);
+        if(!player.isGroundDetected() && player.isWallDetected())
+        {
+            stateMachine.ChangeState(player.wallSlide);
+        }
+
+        player.SetVelocity(player.dashSpeed* player.dashDir, 0);
 
         if(stateTimer < 0)
         {
