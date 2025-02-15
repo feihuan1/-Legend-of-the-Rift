@@ -1,12 +1,9 @@
 using UnityEngine;
 
-public class SkeletonIdleState : EnemyState
+public class SkeletonIdleState : SkeletonGroundedState
 {
-    Enemy_Skeleton enemy;
-
-    public SkeletonIdleState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Skeleton _enemy) : base(_enemyBase, _stateMachine, _animBoolName)
+    public SkeletonIdleState(Enemy _enemyBase, EnemyStateMachine _stateMachine, string _animBoolName, Enemy_Skeleton enemy) : base(_enemyBase, _stateMachine, _animBoolName, enemy)
     {
-        this.enemy = _enemy;
     }
 
     public override void Enter()
@@ -24,10 +21,11 @@ public class SkeletonIdleState : EnemyState
     {
         base.Update();
 
-        if(stateTimer < 0)
+        if (stateTimer < 0)
         {
             stateMachine.ChangeState(enemy.moveState);
         }
+
     }
 
 }
